@@ -8,6 +8,9 @@ submethod BUILD (Pod::NodeListener :$!listener) { }
 
 method walk-pod (Any:D $node) {
     given $node {
+        when Array {
+            $node.map({ self.walk-pod($_) });
+        }
         when Pod::Block::Table {
             $!listener.start($node);
             $node.contents.map({ $!listener.table-row($_) });
