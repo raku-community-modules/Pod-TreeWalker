@@ -1,25 +1,32 @@
 unit role Pod::NodeListener;
 
-method start-code-block (Pod::Block::Code $node) { }
-method end-code-block (Pod::Block::Code $node) { }
-method start-comment-block (Pod::Block::Comment $node) { }
-method end-comment-block (Pod::Block::Comment $node) { }
-method start-declarator-block (Pod::Block::Declarator $node) { }
-method end-declarator-block (Pod::Block::Declarator $node) { }
-method start-named-block (Pod::Block::Named $node) { }
-method end-named-block (Pod::Block::Named $node) { }
-method start-para-block (Pod::Block::Para $node) { }
-method end-para-block (Pod::Block::Para $node) { }
-method start-table-block (Pod::Block::Table $node) { }
-method end-table-block (Pod::Block::Table $node) { }
-method start-formatting-code (Pod::FormattingCode $node) { }
-method end-formatting-code (Pod::FormattingCode $node) { }
-method start-heading (Pod::Heading $node) { }
-method end-heading (Pod::Heading $node) { }
-method start-item (Pod::Item $node) { }
-method end-item (Pod::Item $node) { }
-method start-raw (Pod::Raw $node) { }
-method end-raw (Pod::Raw $node) { }
+# These multi methods cause the interpreter to complain about ambiguous calls,
+# even though it seems like the role method should be shadowed by the class's
+# method.
 
-method config (Pod::Config $node) { }
-method text (Str $text) { }
+multi method start (Pod::Block:D $node) { }
+
+# multi method start (Pod::Block::Code $node) {  }
+# multi method end (Pod::Block::Code $node) {  }
+# multi method start (Pod::Block::Comment $node) {  }
+# multi method end (Pod::Block::Comment $node) {  }
+# multi method start (Pod::Block::Declarator $node) {  }
+# multi method end (Pod::Block::Declarator $node) {  }
+# multi method start (Pod::Block::Named $node) {  }
+# multi method end (Pod::Block::Named $node) {  }
+# multi method start (Pod::Block::Para $node) {  }
+# multi method end (Pod::Block::Para $node) {  }
+# multi method start (Pod::Block::Table $node) {  }
+# multi method end (Pod::Block::Table $node) {  }
+# multi method start (Pod::FormattingCode $node) {  }
+# multi method end (Pod::FormattingCode $node) {  }
+# multi method start (Pod::Heading $node) {  }
+# multi method end (Pod::Heading $node) {  }
+# multi method start (Pod::Item $node) {  }
+# multi method end (Pod::Item $node) {  }
+# multi method start (Pod::Raw $node) {  }
+# multi method end (Pod::Raw $node) {  }
+
+method table-row (Array $row) { }
+method config (Pod::Config $node) {  }
+method text (Str $text) {  }
