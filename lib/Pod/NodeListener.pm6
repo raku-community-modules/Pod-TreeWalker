@@ -30,3 +30,64 @@ multi method start (Pod::Block:D $node) { }
 method table-row (Array $row) { }
 method config (Pod::Config $node) {  }
 method text (Str $text) {  }
+
+=begin pod
+
+=NAME Pod::NodeListener
+
+Role for classes which handle events produced by L<Pod::NodeWalker>
+
+=SYNOPSIS
+
+    class NL does Pod::NodeListener {
+        multi method start (Pod::Heading $node) {
+            say "Heading level {$node.level}";
+        }
+
+        multi method end (Pod::Heading $node) {
+            say "Heading level {$node.level}";
+        }
+
+        method table-row (Array $row) { ... }
+   }
+
+=DESCRIPTION
+
+This role defines the API which objects passed to L<Pod::NodeWalker>'s
+constructor are expected to implement.
+
+=METHOD $listener.start(... $node)
+
+The C<start> method is a multi method which is called for most Pod objects. It
+is passed a L<Pod::Block> object of some sort.
+
+=METHOD $listener.end(... $node)
+
+The C<end> is a multi method that is called for most Pod objects.  It is
+passed a L<Pod::Block> object of some sort.
+
+=METHOD $listener.table-row(Array $row)
+
+This method is called once for each row in a table. The contents of C<$row>
+will be plain strings.
+
+=METHOD $listener.config(Pod::Config $node)
+
+This method is called for Pod config declarations.
+
+=METHOD $listener.text(Str $text)
+
+This method is called for plain text, usually inside a paragraph block.
+
+=AUTHOR Dave Rolsky <autarch@urth.org>
+
+=COPYRIGHT
+
+This software is copyright (c) 2015 by Dave Rolsky.
+
+=LICENSE
+
+This is free software; you can redistribute it and/or modify it under the
+terms of The Artistic License 2.0.
+
+=end pod
