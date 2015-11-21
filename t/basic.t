@@ -140,7 +140,8 @@ B<Bold>, I<italic>, and C<code>.
 
 subtest {
     my $l = TestListener.new;
-    Pod::NodeWalker.new(:listener($l)).walk-pod($=pod[$pod_i++]);
+    my $w = Pod::NodeWalker.new(:listener($l));
+    $w.walk-pod($=pod[$pod_i]);
 
     my @expect = (
          { :start, :type('named'), :name('pod') },
@@ -162,6 +163,8 @@ subtest {
     );
 
     is-deeply $l.events, @expect, 'got expected events';
+
+    is $w.text-contents-of($=pod[$pod_i++]), 'Bold, italic, and code.', 'text content of pod';
 }, 'formatting codes';
 
 =begin pod

@@ -37,6 +37,20 @@ method walk-pod (Any:D $node) {
     }
 }
 
+method text-contents-of(Pod::Block:D $node) {
+    my @text = gather {
+        for $node.contents -> $thing {
+            if $thing ~~ Str {
+                take $thing;
+            }
+            else {
+                take self.text-contents-of($thing);
+            }
+        }
+    };
+    return [~] @text;
+}
+
 =begin pod
 
 =NAME Pod::NodeWalker
@@ -66,6 +80,11 @@ implement the L<Pod::NodeListener> API.
 This method walks through a pod tree starting with the top node in
 C<$pod>. You can provide either an array of pod nodes (as stored in C<$=pod>)
 or a single top-level node (such as C<$=pod[0]>).
+
+=METHOD $walker.text-contents-of($pod)
+
+Given a L<Pod::Block> of any sort, this method recursively descends the blocks
+contents and returns the concatenation of all the plain text that it finds.
 
 =AUTHOR Dave Rolsky <autarch@urth.org>
 
