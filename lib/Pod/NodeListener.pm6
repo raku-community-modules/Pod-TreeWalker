@@ -41,7 +41,7 @@ method text (Str $text) {  }
 
 =NAME Pod::NodeListener
 
-Role for classes which handle events produced by L<Pod::NodeWalker>
+Role for classes which handle events produced by L<doc:Pod::NodeWalker>
 
 =SYNOPSIS
 
@@ -59,22 +59,22 @@ Role for classes which handle events produced by L<Pod::NodeWalker>
 
 =DESCRIPTION
 
-This role defines the API which objects passed to L<Pod::NodeWalker>'s
+This role defines the API which objects passed to L<doc:Pod::NodeWalker>'s
 constructor are expected to implement.
 
 =METHOD $listener.start(... $node)
 
 The C<start> method is a multi method which is called for most Pod objects. It
-is passed a L<Pod::Block> object of some sort.
+is passed a L<doc:Pod::Block> object of some sort.
 
-If this method returns C<False>, then the L<Pod::NodeWalker> will not look at
-the contents of the node, nor will it call the corresponding C<end> method for
-the node.
+If this method returns C<False>, then the L<doc:Pod::NodeWalker> will not look
+at the contents of the node, nor will it call the corresponding C<end> method
+for the node.
 
 =METHOD $listener.end(... $node)
 
 The C<end> is a multi method that is called for most Pod objects.  It is
-passed a L<Pod::Block> object of some sort.
+passed a L<doc:Pod::Block> object of some sort.
 
 =METHOD $listener.table-row(Array $row)
 

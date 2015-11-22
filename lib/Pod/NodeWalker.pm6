@@ -74,7 +74,7 @@ underlying tree structure of Pod.
 =METHOD Pod::NodeWalker.new( :listener( Pod::NodeListener $object ) )
 
 The constructor expects a single argument named C<listener>. This object must
-implement the L<Pod::NodeListener> API.
+implement the L<doc:Pod::NodeListener> API.
 
 =METHOD $walker.walk-pod($pod)
 
@@ -84,8 +84,9 @@ or a single top-level node (such as C<$=pod[0]>).
 
 =METHOD $walker.text-contents-of($pod)
 
-Given a L<Pod::Block> of any sort, this method recursively descends the blocks
-contents and returns the concatenation of all the plain text that it finds.
+Given a L<doc:Pod::Block> of any sort, this method recursively descends the
+blocks contents and returns the concatenation of all the plain text that it
+finds.
 
 =AUTHOR Dave Rolsky <autarch@urth.org>
 
