@@ -26,9 +26,10 @@ method walk-pod (Any:D $node) {
         }
         default {
             if $node.can('contents') {
-                $!listener.start($node);
-                $node.contents.map({ self.walk-pod($_) });
-                $!listener.end($node);
+                if $!listener.start($node) {
+                    $node.contents.map({ self.walk-pod($_) });
+                    $!listener.end($node);
+                }
             }
             else {
                 die "Unknown node type {$node.WHAT}!";

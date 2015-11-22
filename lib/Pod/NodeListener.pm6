@@ -4,7 +4,13 @@ unit role Pod::NodeListener;
 # even though it seems like the role method should be shadowed by the class's
 # method.
 
-multi method start (Pod::Block:D $node) { }
+multi method start (Pod::Block:D $node) {
+    return True;
+}
+
+multi method end (Pod::Block:D $node) {
+    return True;
+}
 
 # multi method start (Pod::Block::Code $node) {  }
 # multi method end (Pod::Block::Code $node) {  }
@@ -60,6 +66,10 @@ constructor are expected to implement.
 
 The C<start> method is a multi method which is called for most Pod objects. It
 is passed a L<Pod::Block> object of some sort.
+
+If this method returns C<False>, then the L<Pod::NodeWalker> will not look at
+the contents of the node, nor will it call the corresponding C<end> method for
+the node.
 
 =METHOD $listener.end(... $node)
 
