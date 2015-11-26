@@ -257,4 +257,29 @@ subtest {
     is-deeply $l.events, @expect, 'got expected events';
 }, 'heading, named block, and paragraph';
 
+=begin pod
+
+=defn Term
+Definition
+
+=end pod
+
+subtest {
+    my $l = TestListener.new;
+    Pod::NodeWalker.new(:listener($l)).walk-pod($=pod[$pod_i++]);
+
+    my @expect = (
+         { :start, :type('named'), :name('pod') },
+         { :start, :type('defn') },
+         { :start, :type('para') },
+         { :text('Definition') },
+         { :end, :type('defn') },
+         { :end, :type('para') },
+         { :end, :type('named'), :name('pod') },
+    );
+
+    todo( 'https://rt.perl.org/Ticket/Display.html?id=126651', 1 );
+    is-deeply $l.events, @expect, 'got expected events';
+}, '=defn block';
+
 done-testing;
