@@ -11,6 +11,9 @@ method walk-pod (Any:D $node) {
         when Array {
             $node.map({ self.walk-pod($_) });
         }
+        # See https://rt.perl.org/Ticket/Display.html?id=114480 - table
+        # content should be parsed as POD, not just passed along as raw
+        # text. For now we fix it ourselves.
         when Pod::Block::Table {
             # As of 2015-11-26 $node.caption isn't populated. See
             # https://rt.perl.org/Ticket/Display.html?id=126740. The caption in
@@ -61,9 +64,6 @@ method !podify (Any $thing) {
     return $thing
        if $thing ~~ Pod::Block;
 
-    # XXX - is there a less gross way to turn arbitrary text into pod? Or
-    # maybe the compiler should be doing this for us when it parses pod
-    # tables?
     return EVAL("=begin pod\n\n$thing\n\n=end pod\n; \$=pod[0]");
 }
 
