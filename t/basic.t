@@ -105,7 +105,7 @@ subtest {
 
 =begin pod
 
-=begin table :caption<Foo and Bar>
+=begin table :caption('Foo and Bar')
 
     Name    Color    Size
     ===========================

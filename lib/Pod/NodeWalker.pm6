@@ -12,9 +12,28 @@ method walk-pod (Any:D $node) {
             $node.map({ self.walk-pod($_) });
         }
         when Pod::Block::Table {
-            $!listener.start($node);
-            $node.contents.map({ $!listener.table-row($_) });
-            $!listener.end($node);
+            # As of 2015-11-26 $node.caption isn't populated. See
+            # https://rt.perl.org/Ticket/Display.html?id=126740. The caption in
+            # the config includes quotes from :caption('foo'). See
+            # https://rt.perl.org/Ticket/Display.html?id=126742.
+            my $caption = $node.caption;
+            if ! $caption && $node.config<caption> {
+                $caption = $node.config<caption>:delete;
+                $caption.subst-mutate( /^<[ ' " ]> |<[ ' " ]>$/, q{}, :g );
+            }
+
+            my $new-node = Pod::Block::Table.new(
+                :caption($caption),
+                :config( $node.config ),
+                :headers( $node.headers.map({ self!podify($_) }) ),
+                :contents( $node.contents ),
+            );
+
+            $!listener.start($new-node);
+            for $new-node.contents -> $row {
+                $!listener.table-row( [ $row.map({ self!podify($_) } ) ] );
+            }
+            $!listener.end($new-node);
         }
         when Pod::Config {
             $!listener.config($node);
@@ -36,6 +55,16 @@ method walk-pod (Any:D $node) {
             }
         }
     }
+}
+
+method !podify (Any $thing) {
+    return $thing
+       if $thing ~~ Pod::Block;
+
+    # XXX - is there a less gross way to turn arbitrary text into pod? Or
+    # maybe the compiler should be doing this for us when it parses pod
+    # tables?
+    return EVAL("=begin pod\n\n$thing\n\n=end pod\n; \$=pod[0]");
 }
 
 method text-contents-of(Pod::Block:D $node) {
@@ -74,7 +103,7 @@ underlying tree structure of Pod.
 =METHOD Pod::NodeWalker.new( :listener( Pod::NodeListener $object ) )
 
 The constructor expects a single argument named C<listener>. This object must
-implement the L<doc:Pod::NodeListener> API.
+implement the L<Pod::NodeListener> API.
 
 =METHOD $walker.walk-pod($pod)
 
@@ -84,9 +113,8 @@ or a single top-level node (such as C<$=pod[0]>).
 
 =METHOD $walker.text-contents-of($pod)
 
-Given a L<doc:Pod::Block> of any sort, this method recursively descends the
-blocks contents and returns the concatenation of all the plain text that it
-finds.
+Given a L<Pod::Block> of any sort, this method recursively descends the blocks
+contents and returns the concatenation of all the plain text that it finds.
 
 =AUTHOR Dave Rolsky <autarch@urth.org>
 

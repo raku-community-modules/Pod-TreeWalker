@@ -35,7 +35,7 @@ multi method end (Pod::Block:D $node) {
 
 method table-row (Array $row) { }
 method config (Pod::Config $node) {  }
-method text (Str $text) {  }
+method text (Str:D $text) {  }
 
 =begin pod
 
@@ -71,6 +71,11 @@ If this method returns C<False>, then the L<doc:Pod::NodeWalker> will not look
 at the contents of the node, nor will it call the corresponding C<end> method
 for the node.
 
+=head3 Tables
+
+The headers of a table (from C<$node.headers>) are passed as an array of
+L<Pod::Blocks>.
+
 =METHOD $listener.end(... $node)
 
 The C<end> is a multi method that is called for most Pod objects.  It is
@@ -78,8 +83,8 @@ passed a L<doc:Pod::Block> object of some sort.
 
 =METHOD $listener.table-row(Array $row)
 
-This method is called once for each row in a table. The contents of C<$row>
-will be plain strings.
+This method is called once for each row in a table. Each element of C<$row>
+will in turn be a L<Pod::Block>.
 
 =METHOD $listener.config(Pod::Config $node)
 

@@ -42,11 +42,20 @@ class TestListener does Pod::NodeListener {
     }
 
     multi method start (Pod::Block::Table $node) {
-        @.events.push( { :start, :type('table'), :caption($node.config<caption>), :headers($node.headers)} );
+        my @h = $node.headers.map({ .contents[0].contents[0] });
+        @.events.push(
+            {
+                :start,
+                :type('table'),
+                :caption( $node.caption ),
+                :headers(@h),
+            }
+        );
         return True;
     }
     method table-row (Array $row) {
-        @.events.push( { :table-row($row) } );
+        my @r = $row.map({ .contents[0].contents[0] });
+        @.events.push( { :table-row(@r) } );
     }
     multi method end (Pod::Block::Table $node) {
         @.events.push( { :end, :type('table') } );
