@@ -20,10 +20,7 @@ method walk-pod (Any:D $node, Int $depth = 0) {
         when Pod::Item {
             if $node.level > $!list-level {
                 $!list-start-depth ||= $depth;
-                $!listener.start-list( :level($_), :numbered( ?$node.config<numbered> ) )
-                    for ($!list-level + 1) .. $node.level;
-                $!list-level = $node.level;
-                $!last-list-was-numbered = ?$node.config<numbered>;
+                self!start-lists-to( $node.level, $node );
             }
             elsif $!list-level > $node.level {
                 self!end-lists-to( $node.level );
@@ -94,6 +91,13 @@ method !maybe-end-all-lists (Any $node, Int $depth) {
     $!list-start-depth = 0;
 }
 
+method !start-lists-to (Int $level, Pod::Item $node) {
+    $!listener.start-list( :level($_), :numbered( ?$node.config<numbered> ) )
+        for ($!list-level + 1) .. $level;
+    $!list-level = $node.level;
+    $!last-list-was-numbered = ?$node.config<numbered>;
+}
+
 method !end-lists-to (Int $level) {
     $!listener.end-list( :level($_), :numbered( $!last-list-was-numbered ) )
         for $!list-level ... $level + 1;
@@ -136,8 +140,8 @@ Walk a Pod tree and generate an event for each node.
 
 This class provides an API for walking a pod tree (as provided by
 C<$=pod>). Each node in the tree will trigger one or more events. These events
-cause methods to be called on a listener object that your provide. This lets
-you do something without a Pod document without having to know much about the
+cause methods to be called on a listener object that you provide. This lets
+you do something with a Pod document without having to know much about the
 underlying tree structure of Pod.
 
 =METHOD Pod::NodeWalker.new( :listener( Pod::NodeListener $object ) )
