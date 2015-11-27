@@ -33,6 +33,8 @@ multi method end (Pod::Block:D $node) {
 # multi method start (Pod::Raw $node) {  }
 # multi method end (Pod::Raw $node) {  }
 
+method start-list (Int :$level, Bool :$numbered) { }
+method end-list (Int :$level, Bool :$numbered) { }
 method table-row (Array $row) { }
 method config (Pod::Config $node) {  }
 method text (Str:D $text) {  }
@@ -80,6 +82,20 @@ L<Pod::Blocks>.
 
 The C<end> is a multi method that is called for most Pod objects.  It is
 passed a L<doc:Pod::Block> object of some sort.
+
+=METHOD $listener.start-list(Int :$level, Bool :numbered)
+
+This method is called whenever a new list level is encountered. It can be
+called multiple times in a row if a list item is introduced that skips levels,
+for example:
+
+    =item1 start-list is called once
+    =item3 start-list is called twice
+
+=METHOD $listener.end-list(Int :$level, Bool :numbered)
+
+This method is called whenever a list level is done. List C<start-list>, it
+can be called multiple times in a row.
 
 =METHOD $listener.table-row(Array $row)
 

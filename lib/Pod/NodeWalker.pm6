@@ -4,12 +4,32 @@ use Pod::NodeListener;
 
 has Pod::NodeListener $!listener;
 
+has Int $!list-level = 0;
+has Int $!list-start-depth = 0;
+has Bool $!last-list-was-numbered = False;
+
 submethod BUILD (Pod::NodeListener :$!listener) { }
 
-method walk-pod (Any:D $node) {
+method walk-pod (Any:D $node, Int $depth = 0) {
+    self!maybe-end-all-lists( $node, $depth );
+
     given $node {
         when Array {
-            $node.map({ self.walk-pod($_) });
+            $node.map({ self.walk-pod( $_, $depth + 1 ) });
+        }
+        when Pod::Item {
+            if $node.level > $!list-level {
+                $!list-start-depth ||= $depth;
+                $!listener.start-list( :level($_), :numbered( ?$node.config<numbered> ) )
+                    for ($!list-level + 1) .. $node.level;
+                $!list-level = $node.level;
+                $!last-list-was-numbered = ?$node.config<numbered>;
+            }
+            elsif $!list-level > $node.level {
+                self!end-lists-to( $node.level );
+            }
+            
+            self!send-events-for-node( $node, $depth );
         }
         # See https://rt.perl.org/Ticket/Display.html?id=114480 - table
         # content should be parsed as POD, not just passed along as raw
@@ -47,17 +67,37 @@ method walk-pod (Any:D $node) {
             $!listener.text($node) if $node.chars;
         }
         default {
-            if $node.can('contents') {
-                if $!listener.start($node) {
-                    $node.contents.map({ self.walk-pod($_) });
-                    $!listener.end($node);
-                }
-            }
-            else {
-                die "Unknown node type {$node.WHAT}!";
-            }
+            self!send-events-for-node( $node, $depth );
         }
     }
+}
+
+method !send-events-for-node (Pod::Block $node, Int $depth) {
+    if $node.can('contents') {
+        if $!listener.start($node) {
+            $node.contents.map({ self.walk-pod( $_, $depth + 1 ) });
+            self!maybe-end-all-lists( $node, $depth );
+            $!listener.end($node);
+        }
+    }
+    else {
+        die "Unknown node type {$node.WHAT}!";
+    }
+}
+
+method !maybe-end-all-lists (Any $node, Int $depth) {
+    return unless $!list-level;
+    return unless $depth <= $!list-start-depth;
+    return if  $node.isa(Pod::Item);
+
+    self!end-lists-to(0);
+    $!list-start-depth = 0;
+}
+
+method !end-lists-to (Int $level) {
+    $!listener.end-list( :level($_), :numbered( $!last-list-was-numbered ) )
+        for $!list-level ... $level + 1;
+    $!list-level = $level;
 }
 
 method !podify (Any $thing) {

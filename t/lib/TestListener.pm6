@@ -77,6 +77,13 @@ class TestListener does Pod::NodeListener {
         @.events.push( { :end, :type('heading'), :level($node.level) } );
     }
 
+    method start-list (Int :$level, Bool :$numbered) {
+        @.events.push( { :start, :type('list'), :level($level), :numbered($numbered) } );
+    }
+    method end-list (Int :$level, Bool :$numbered) {
+        @.events.push( { :end, :type('list'), :level($level), :numbered($numbered) } );
+    }
+
     multi method start (Pod::Item $node) {
         @.events.push( { :start, :type('item'), :level($node.level) } );
         return True;

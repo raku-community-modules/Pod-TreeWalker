@@ -185,47 +185,6 @@ subtest {
 }, 'code block';
 
 =begin pod
-
-=item1 First
-=item1 Second
-=item2 .2
-=item1 Third
-
-=end pod
-
-subtest {
-    my $l = TestListener.new;
-    Pod::NodeWalker.new(:listener($l)).walk-pod($=pod[$pod_i++]);
-
-    my @expect = (
-         { :start, :type('named'), :name('pod') },
-         { :start, :type('item'), :level(1) },
-         { :start, :type('para') },
-         { :text('First') },
-         { :end, :type('para') },
-         { :end, :type('item'), :level(1) },
-         { :start, :type('item'), :level(1) },
-         { :start, :type('para') },
-         { :text('Second') },
-         { :end, :type('para') },
-         { :end, :type('item'), :level(1) },
-         { :start, :type('item'), :level(2) },
-         { :start, :type('para') },
-         { :text('.2') },
-         { :end, :type('para') },
-         { :end, :type('item'), :level(2) },
-         { :start, :type('item'), :level(1) },
-         { :start, :type('para') },
-         { :text('Third') },
-         { :end, :type('para') },
-         { :end, :type('item'), :level(1) },
-         { :end, :type('named'), :name('pod') },
-    );
-
-    is-deeply $l.events, @expect, 'got expected events';
-}, 'items';
-
-=begin pod
 =head1 HEADING
 =title TITLE GOES HERE
 
