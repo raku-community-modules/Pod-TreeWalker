@@ -8,6 +8,8 @@ has Int $!list-level = 0;
 has Int $!list-start-depth = 0;
 has Bool $!last-list-was-numbered = False;
 
+our $DEBUG = 0;
+
 submethod BUILD (Pod::NodeListener :$!listener) { }
 
 method walk-pod (Any:D $node, Int $depth = 0) {
@@ -15,9 +17,11 @@ method walk-pod (Any:D $node, Int $depth = 0) {
 
     given $node {
         when Array {
+            d "Node is an array (depth = $depth)" if $DEBUG;
             $node.map({ self.walk-pod( $_, $depth + 1 ) });
         }
         when Pod::Item {
+            d "Item (depth = $depth)" if $DEBUG;
             if $node.level > $!list-level {
                 $!list-start-depth ||= $depth;
                 self!start-lists-to( $node.level, $node );
@@ -32,6 +36,7 @@ method walk-pod (Any:D $node, Int $depth = 0) {
         # content should be parsed as POD, not just passed along as raw
         # text. For now we fix it ourselves.
         when Pod::Block::Table {
+            d "Table (depth = $depth)" if $DEBUG;
             # As of 2015-11-26 $node.caption isn't populated. See
             # https://rt.perl.org/Ticket/Display.html?id=126740. The caption in
             # the config includes quotes from :caption('foo'). See
@@ -56,9 +61,11 @@ method walk-pod (Any:D $node, Int $depth = 0) {
             $!listener.end($new-node);
         }
         when Pod::Config {
+            d "Config (depth = $depth)" if $DEBUG;
             $!listener.config($node);
         }
         when Str {
+            d "Str (depth = $depth)" if $DEBUG;
             # A paragraph that begins with a formatting code produces an empty
             # string in its contents, which is useless to pass on.
             $!listener.text($node) if $node.chars;
@@ -71,9 +78,12 @@ method walk-pod (Any:D $node, Int $depth = 0) {
 
 method !send-events-for-node (Pod::Block $node, Int $depth) {
     if $node.can('contents') {
+        d "Start {$node.WHAT} (depth = $depth)" if $DEBUG;
         if $!listener.start($node) {
+            d "  ... walking contents" if $DEBUG;
             $node.contents.map({ self.walk-pod( $_, $depth + 1 ) });
             self!maybe-end-all-lists( $node, $depth );
+            d "  ... end" if $DEBUG;
             $!listener.end($node);
         }
     }
@@ -123,6 +133,10 @@ method text-contents-of(Pod::Block:D $node) {
         }
     };
     return [~] @text;
+}
+
+sub d (Cool:D $d) {
+    say $d;
 }
 
 =begin pod
