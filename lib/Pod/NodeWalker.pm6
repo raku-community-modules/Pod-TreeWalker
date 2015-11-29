@@ -18,7 +18,7 @@ method walk-pod (Any:D $node, Int $depth = 0) {
     given $node {
         when Array {
             d "Node is an array (depth = $depth)" if $DEBUG;
-            $node.map({ self.walk-pod( $_, $depth + 1 ) });
+            self.walk-pod( $_, $depth + 1 ) for $node.values;
         }
         when Pod::Item {
             d "Item (depth = $depth)" if $DEBUG;
@@ -81,7 +81,7 @@ method !send-events-for-node (Pod::Block $node, Int $depth) {
         d "Start {$node.WHAT} (depth = $depth)" if $DEBUG;
         if $!listener.start($node) {
             d "  ... walking contents" if $DEBUG;
-            $node.contents.map({ self.walk-pod( $_, $depth + 1 ) });
+            self.walk-pod( $_, $depth + 1 ) for $node.contents;
             self!maybe-end-all-lists( $node, $depth );
             d "  ... end" if $DEBUG;
             $!listener.end($node);
