@@ -47,7 +47,7 @@ Role for classes which handle events produced by L<doc:Pod::TreeWalker>
 
 =SYNOPSIS
 
-    class NL does Pod::TreeWalker::Listener {
+    class MyListener does Pod::TreeWalker::Listener {
         multi method start (Pod::Heading $node) {
             say "Heading level {$node.level}";
         }
