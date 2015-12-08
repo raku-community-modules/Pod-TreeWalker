@@ -1,7 +1,7 @@
 use v6;
 use Test;
 use lib 'lib', 't/lib';;
-use Pod::NodeWalker;
+use Pod::TreeWalker;
 use TestListener;
 
 my $pod_i = 0;
@@ -13,7 +13,7 @@ class Foo {
 
 subtest {
     my $l = TestListener.new;
-    Pod::NodeWalker.new(:listener($l)).walk-pod($=pod[$pod_i++]);
+    Pod::TreeWalker.new(:listener($l)).walk-pod($=pod[$pod_i++]);
 
     my @expect = (
          { :start, :type('declarator'), :wherefore(Foo) },
@@ -24,7 +24,7 @@ subtest {
     is-deeply $l.events, @expect, 'got expected events for class declarator';
 
     $l = TestListener.new;
-    Pod::NodeWalker.new(:listener($l)).walk-pod($=pod[$pod_i++]);
+    Pod::TreeWalker.new(:listener($l)).walk-pod($=pod[$pod_i++]);
 
     # XXX - This WHEREFORE doesn't seem right
     @expect = (

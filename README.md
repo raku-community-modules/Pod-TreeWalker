@@ -1,7 +1,7 @@
 NAME
 ====
 
-Pod::NodeWalker
+Pod::TreeWalker
 
 Walk a Pod tree and generate an event for each node.
 
@@ -11,7 +11,7 @@ SYNOPSIS
 
 
     my $to-html = Pod::To::HTML.new(...);
-    Pod::NodeWalker.new( :listener($to-html) ).walk-pod($=pod);
+    Pod::TreeWalker.new( :listener($to-html) ).walk-pod($=pod);
 
 DESCRIPTION
 ===========
@@ -23,9 +23,9 @@ This class provides an API for walking a pod tree (as provided by `$=pod`). Each
 METHOD
 ======
 
-Pod::NodeWalker.new( :listener( Pod::NodeListener $object ) )
+Pod::TreeWalker.new( :listener( Pod::TreeWalker::Listener $object ) )
 
-The constructor expects a single argument named `listener`. This object must implement the [Pod::NodeListener](Pod::NodeListener) API.
+The constructor expects a single argument named `listener`. This object must implement the [Pod::TreeWalker::Listener](Pod::TreeWalker::Listener) API.
 
 METHOD
 ======

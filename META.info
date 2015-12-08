@@ -1,11 +1,11 @@
 {
-    "name"        : "Pod::NodeWalker",
+    "name"        : "Pod::TreeWalker",
     "version"     : "0.0.1",
     "author"      : "github:autarch",
     "description" : "",
     "provides"    : {
-        "Pod::NodeWalker"   : "lib/Pod/NodeWalker.pm6",
-        "Pod::NodeListener" : "lib/Pod/NodeListener.pm6",
+        "Pod::TreeWalker"   : "lib/Pod/TreeWalker.pm6",
+        "Pod::TreeWalker::Listener" : "lib/Pod/NodeListener.pm6",
     },
-    "source-url"  : "git://github.com/autarch/perl6-Pod-NodeWalker.git"
+    "source-url"  : "git://github.com/autarch/perl6-Pod-TreeWalker.git"
 }

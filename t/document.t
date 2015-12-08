@@ -1,7 +1,7 @@
 use v6;
 use Test;
 use lib 'lib', 't/lib';;
-use Pod::NodeWalker;
+use Pod::TreeWalker;
 use TestListener;
 
 =begin pod
@@ -25,7 +25,7 @@ This module does something amazing!
 # we just need some code here to break up the POD. It doesn't matter what it
 # is, really.
 my $l = TestListener.new;
-Pod::NodeWalker.new(:listener($l)).walk-pod($=pod);
+Pod::TreeWalker.new(:listener($l)).walk-pod($=pod);
 
 my $code = "use Some::Module;\nmy \$m = Some::Module.new( :foo(42) );\n\$m.do-your-thing;";
 

@@ -1,4 +1,4 @@
-class TestListener does Pod::NodeListener {
+class TestListener does Pod::TreeWalker::Listener {
     has @.events;
 
     multi method start (Pod::Block::Code $node) {

@@ -1,7 +1,7 @@
 use v6;
 use Test;
 use lib 'lib', 't/lib';;
-use Pod::NodeWalker;
+use Pod::TreeWalker;
 use TestListener;
 
 my $pod_i = 0;
@@ -13,7 +13,7 @@ my $pod_i = 0;
 
 subtest {
     my $l = TestListener.new;
-    Pod::NodeWalker.new(:listener($l)).walk-pod($=pod[$pod_i++]);
+    Pod::TreeWalker.new(:listener($l)).walk-pod($=pod[$pod_i++]);
 
     my @expect = (
          { :start, :type('named'), :name('pod') },
@@ -41,7 +41,7 @@ subtest {
 
 subtest {
     my $l = TestListener.new;
-    Pod::NodeWalker.new(:listener($l)).walk-pod($=pod[$pod_i++]);
+    Pod::TreeWalker.new(:listener($l)).walk-pod($=pod[$pod_i++]);
 
     my @expect = (
          { :start, :type('named'), :name('pod') },
@@ -63,7 +63,7 @@ subtest {
 subtest {
 
     my $l = TestListener.new;
-    Pod::NodeWalker.new(:listener($l)).walk-pod($=pod[$pod_i++]);
+    Pod::TreeWalker.new(:listener($l)).walk-pod($=pod[$pod_i++]);
 
     my @expect = (
          { :start, :type('named'), :name('pod') },
@@ -87,7 +87,7 @@ And another.
 subtest {
 
     my $l = TestListener.new;
-    Pod::NodeWalker.new(:listener($l)).walk-pod($=pod[$pod_i++]);
+    Pod::TreeWalker.new(:listener($l)).walk-pod($=pod[$pod_i++]);
 
     my @expect = (
          { :start, :type('named'), :name('pod') },
@@ -118,7 +118,7 @@ subtest {
 
 subtest {
     my $l = TestListener.new;
-    Pod::NodeWalker.new(:listener($l)).walk-pod($=pod[$pod_i++]);
+    Pod::TreeWalker.new(:listener($l)).walk-pod($=pod[$pod_i++]);
 
     my @expect = (
          { :start, :type('named'), :name('pod') },
@@ -140,7 +140,7 @@ B<Bold>, I<italic>, and C<code>.
 
 subtest {
     my $l = TestListener.new;
-    my $w = Pod::NodeWalker.new(:listener($l));
+    my $w = Pod::TreeWalker.new(:listener($l));
     $w.walk-pod($=pod[$pod_i]);
 
     my @expect = (
@@ -173,7 +173,7 @@ subtest {
 
 subtest {
     my $l = TestListener.new;
-    Pod::NodeWalker.new(:listener($l)).walk-pod($=pod[$pod_i++]);
+    Pod::TreeWalker.new(:listener($l)).walk-pod($=pod[$pod_i++]);
 
     my @expect = (
          { :start, :type('named'), :name('pod') },
@@ -193,7 +193,7 @@ And a paragraph of text
 
 subtest {
     my $l = TestListener.new;
-    Pod::NodeWalker.new(:listener($l)).walk-pod($=pod[$pod_i++]);
+    Pod::TreeWalker.new(:listener($l)).walk-pod($=pod[$pod_i++]);
 
     my @expect = (
          { :start, :type('named'), :name('pod') },
@@ -225,7 +225,7 @@ Definition
 
 subtest {
     my $l = TestListener.new;
-    Pod::NodeWalker.new(:listener($l)).walk-pod($=pod[$pod_i++]);
+    Pod::TreeWalker.new(:listener($l)).walk-pod($=pod[$pod_i++]);
 
     my @expect = (
          { :start, :type('named'), :name('pod') },

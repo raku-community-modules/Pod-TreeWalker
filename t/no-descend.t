@@ -1,7 +1,7 @@
 use v6;
 use Test;
 use lib 'lib', 't/lib';;
-use Pod::NodeWalker;
+use Pod::TreeWalker;
 use TestListener;
 
 my class PickyListener is TestListener {
@@ -24,7 +24,7 @@ my class PickyListener is TestListener {
 
 subtest {
     my $l = PickyListener.new;
-    Pod::NodeWalker.new(:listener($l)).walk-pod($=pod[0]);
+    Pod::TreeWalker.new(:listener($l)).walk-pod($=pod[0]);
 
     my @expect = (
          { :start, :type('named'), :name('pod') },

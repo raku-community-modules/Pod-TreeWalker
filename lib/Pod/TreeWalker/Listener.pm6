@@ -1,4 +1,4 @@
-unit role Pod::NodeListener;
+unit role Pod::TreeWalker::Listener;
 
 # These multi methods cause the interpreter to complain about ambiguous calls,
 # even though it seems like the role method should be shadowed by the class's
@@ -41,13 +41,13 @@ method text (Str:D $text) {  }
 
 =begin pod
 
-=NAME Pod::NodeListener
+=NAME Pod::TreeWalker::Listener
 
-Role for classes which handle events produced by L<doc:Pod::NodeWalker>
+Role for classes which handle events produced by L<doc:Pod::TreeWalker>
 
 =SYNOPSIS
 
-    class NL does Pod::NodeListener {
+    class NL does Pod::TreeWalker::Listener {
         multi method start (Pod::Heading $node) {
             say "Heading level {$node.level}";
         }
@@ -61,7 +61,7 @@ Role for classes which handle events produced by L<doc:Pod::NodeWalker>
 
 =DESCRIPTION
 
-This role defines the API which objects passed to L<doc:Pod::NodeWalker>'s
+This role defines the API which objects passed to L<doc:Pod::TreeWalker>'s
 constructor are expected to implement.
 
 =METHOD $listener.start(... $node)
@@ -69,7 +69,7 @@ constructor are expected to implement.
 The C<start> method is a multi method which is called for most Pod objects. It
 is passed a L<doc:Pod::Block> object of some sort.
 
-If this method returns C<False>, then the L<doc:Pod::NodeWalker> will not look
+If this method returns C<False>, then the L<doc:Pod::TreeWalker> will not look
 at the contents of the node, nor will it call the corresponding C<end> method
 for the node.
 

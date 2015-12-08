@@ -1,8 +1,8 @@
-unit class Pod::NodeWalker;
+unit class Pod::TreeWalker;
 
-use Pod::NodeListener;
+use Pod::TreeWalker::Listener;
 
-has Pod::NodeListener $!listener;
+has Pod::TreeWalker::Listener $!listener;
 
 has Int $!list-level = 0;
 has Int $!list-start-depth = 0;
@@ -10,7 +10,7 @@ has Bool $!last-list-was-numbered = False;
 
 our $DEBUG = 0;
 
-submethod BUILD (Pod::NodeListener :$!listener) { }
+submethod BUILD (Pod::TreeWalker::Listener :$!listener) { }
 
 method walk-pod (Any:D $node, Int $depth = 0) {
     self!maybe-end-all-lists( $node, $depth );
@@ -141,14 +141,14 @@ sub d (Cool:D $d) {
 
 =begin pod
 
-=NAME Pod::NodeWalker
+=NAME Pod::TreeWalker
 
 Walk a Pod tree and generate an event for each node.
 
 =SYNOPSIS
 
     my $to-html = Pod::To::HTML.new(...);
-    Pod::NodeWalker.new( :listener($to-html) ).walk-pod($=pod);
+    Pod::TreeWalker.new( :listener($to-html) ).walk-pod($=pod);
 
 =DESCRIPTION
 
@@ -158,10 +158,10 @@ cause methods to be called on a listener object that you provide. This lets
 you do something with a Pod document without having to know much about the
 underlying tree structure of Pod.
 
-=METHOD Pod::NodeWalker.new( :listener( Pod::NodeListener $object ) )
+=METHOD Pod::TreeWalker.new( :listener( Pod::TreeWalker::Listener $object ) )
 
 The constructor expects a single argument named C<listener>. This object must
-implement the L<Pod::NodeListener> API.
+implement the L<Pod::TreeWalker::Listener> API.
 
 =METHOD $walker.walk-pod($pod)
 

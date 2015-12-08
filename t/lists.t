@@ -1,7 +1,7 @@
 use v6;
 use Test;
 use lib 'lib', 't/lib';;
-use Pod::NodeWalker;
+use Pod::TreeWalker;
 use TestListener;
 
 my $pod_i = 0;
@@ -18,7 +18,7 @@ Para 2
 
 subtest {
     my $l = TestListener.new;
-    Pod::NodeWalker.new(:listener($l)).walk-pod($=pod[$pod_i++]);
+    Pod::TreeWalker.new(:listener($l)).walk-pod($=pod[$pod_i++]);
 
     my @expect = (
          { :start, :type('named'), :name('pod') },
@@ -53,7 +53,7 @@ Second
 
 subtest {
     my $l = TestListener.new;
-    Pod::NodeWalker.new(:listener($l)).walk-pod($=pod[$pod_i++]);
+    Pod::TreeWalker.new(:listener($l)).walk-pod($=pod[$pod_i++]);
 
     my @expect = (
          { :start, :type('named'), :name('pod') },
@@ -86,7 +86,7 @@ subtest {
 
 subtest {
     my $l = TestListener.new;
-    Pod::NodeWalker.new(:listener($l)).walk-pod($=pod[$pod_i++]);
+    Pod::TreeWalker.new(:listener($l)).walk-pod($=pod[$pod_i++]);
 
     my @expect = (
          { :start, :type('named'), :name('pod') },
@@ -132,7 +132,7 @@ subtest {
 
 subtest {
     my $l = TestListener.new;
-    Pod::NodeWalker.new(:listener($l)).walk-pod($=pod[$pod_i++]);
+    Pod::TreeWalker.new(:listener($l)).walk-pod($=pod[$pod_i++]);
 
     my @expect = (
          { :start, :type('named'), :name('pod') },
