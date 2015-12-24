@@ -9,3 +9,7 @@ if AUTHOR {
     meta-ok;
     done-testing;
 }
+else {
+    ok( 1, 'this test is only run when the AUTHOR_TESTING env var is true' );
+    done-testing;
+}
