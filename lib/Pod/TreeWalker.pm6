@@ -118,6 +118,7 @@ method !podify (Any $thing) {
     return $thing
        if $thing ~~ Pod::Block;
 
+    use MONKEY-SEE-NO-EVAL;
     return EVAL("=begin pod\n\n$thing\n\n=end pod\n; \$=pod[0]");
 }
 
