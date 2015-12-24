@@ -2,7 +2,7 @@
     "name"        : "Pod::TreeWalker",
     "version"     : "0.0.1",
     "author"      : "github:autarch",
-    "description" : "",
+    "description" : "Walk a Pod tree and generate an event for each node",
     "provides"    : {
         "Pod::TreeWalker"   : "lib/Pod/TreeWalker.pm6",
         "Pod::TreeWalker::Listener" : "lib/Pod/NodeListener.pm6",
