@@ -144,7 +144,7 @@ sub d (Cool:D $d) {
 
 =NAME Pod::TreeWalker
 
-Walk a Pod tree and generate an event for each node.
+Walk a Pod tree and generate an event for each node
 
 =SYNOPSIS
 
