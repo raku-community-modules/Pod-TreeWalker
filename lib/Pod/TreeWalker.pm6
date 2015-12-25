@@ -97,11 +97,14 @@ method !maybe-end-all-lists (Any $node, Int $depth) {
     return unless $depth <= $!list-start-depth;
     return if $node.isa(Pod::Item);
 
+    d "Ending all lists (level is $!list-level)" if $DEBUG;
+
     self!end-lists-to(0);
     $!list-start-depth = 0;
 }
 
 method !start-lists-to (Int $level, Pod::Item $node) {
+    d "  ... starting lists from {$!list-level + 1} .. $level " if $DEBUG;
     $!listener.start-list( :level($_), :numbered( ?$node.config<numbered> ) )
         for ($!list-level + 1) .. $level;
     $!list-level = $node.level;
@@ -109,6 +112,7 @@ method !start-lists-to (Int $level, Pod::Item $node) {
 }
 
 method !end-lists-to (Int $level) {
+    d "  ... ending lists from $!list-level ... {$level + 1} " if $DEBUG;
     $!listener.end-list( :level($_), :numbered( $!last-list-was-numbered ) )
         for $!list-level ... $level + 1;
     $!list-level = $level;
