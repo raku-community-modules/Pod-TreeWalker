@@ -95,7 +95,7 @@ method !send-events-for-node (Pod::Block $node, Int $depth) {
 method !maybe-end-all-lists (Any $node, Int $depth) {
     return unless $!list-level;
     return unless $depth <= $!list-start-depth;
-    return if  $node.isa(Pod::Item);
+    return if $node.isa(Pod::Item);
 
     self!end-lists-to(0);
     $!list-start-depth = 0;
