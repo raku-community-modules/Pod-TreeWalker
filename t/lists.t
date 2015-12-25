@@ -122,6 +122,51 @@ subtest {
 
 =begin pod
 
+=item1 A
+=item1 B
+=item2 B.1
+=item2 B.2
+
+=end pod
+
+subtest {
+    my $l = TestListener.new;
+    Pod::TreeWalker.new(:listener($l)).walk-pod($=pod[$pod_i++]);
+
+    my @expect = (
+         { :start, :type('named'), :name('pod') },
+         { :start, :type('list'), :level(1), :!numbered },
+         { :start, :type('item'), :level(1) },
+         { :start, :type('para') },
+         { :text('A') },
+         { :end, :type('para') },
+         { :end, :type('item'), :level(1) },
+         { :start, :type('item'), :level(1) },
+         { :start, :type('para') },
+         { :text('B') },
+         { :end, :type('para') },
+         { :end, :type('item'), :level(1) },
+         { :start, :type('list'), :level(2), :!numbered },
+         { :start, :type('item'), :level(2) },
+         { :start, :type('para') },
+         { :text('B.1') },
+         { :end, :type('para') },
+         { :end, :type('item'), :level(2) },
+         { :start, :type('item'), :level(2) },
+         { :start, :type('para') },
+         { :text('B.2') },
+         { :end, :type('para') },
+         { :end, :type('item'), :level(2) },
+         { :end, :type('list'), :level(2), :!numbered },
+         { :end, :type('list'), :level(1), :!numbered },
+         { :end, :type('named'), :name('pod') },
+    );
+
+    is-deeply $l.events, @expect, 'got expected events';
+}, 'list ends with =item2';
+
+=begin pod
+
 =item2 Straight to 2nd
 =item4 and then 4th
 =item3 what, 3rd?
