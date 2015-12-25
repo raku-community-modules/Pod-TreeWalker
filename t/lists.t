@@ -220,4 +220,35 @@ subtest {
     is-deeply $l.events, @expect, 'got expected events';
 }, 'jumble of list items skipping levels up and down';
 
+
+subtest {
+    my $l = TestListener.new;
+
+    my @pod = (
+        Pod::Item.new(
+            :level(1),
+            :contents(['item 1']),
+        ),
+        Pod::Item.new(
+            :level(1),
+            :contents(['item 2']),
+        ),
+    );
+
+    Pod::TreeWalker.new(:listener($l)).walk-pod(@pod);
+
+    my @expect = (
+         { :start, :type('list'), :level(1), :!numbered },
+         { :start, :type('item'), :level(1) },
+         { :text('item 1') },
+         { :end, :type('item'), :level(1) },
+         { :start, :type('item'), :level(1) },
+         { :text('item 2') },
+         { :end, :type('item'), :level(1) },
+         { :end, :type('list'), :level(1), :!numbered },
+    );
+
+    is-deeply $l.events, @expect, 'got expected events';
+}, 'list of pod objects created directly';
+
 done-testing;

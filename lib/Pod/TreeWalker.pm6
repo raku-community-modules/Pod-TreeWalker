@@ -74,6 +74,13 @@ method walk-pod (Any:D $node, Int $depth = 0) {
             self!send-events-for-node( $node, $depth );
         }
     }
+
+    # This is not needed for normal parsed Pod because of the way rakudo
+    # interprets every item as having a paragraph block. However, if you
+    # create the pod objects manually and don't wrap each item's contents in a
+    # paragraph block then we have to make sure to end all lists before we're
+    # done with the Pod.
+    self!maybe-end-all-lists( $node, $depth ) if $depth == 0;
 }
 
 method !send-events-for-node (Pod::Block $node, Int $depth) {
