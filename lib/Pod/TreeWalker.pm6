@@ -148,7 +148,13 @@ method text-contents-of(Pod::Block:D $node) {
 }
 
 sub d (Cool:D $d) {
-    say $d;
+    if %*ENV<HARNESS_ACTIVE> {
+        use Test;
+        diag($d);
+    }
+    else {
+        say $d;
+    }
 }
 
 =begin pod
