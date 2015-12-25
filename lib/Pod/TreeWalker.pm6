@@ -78,7 +78,7 @@ method walk-pod (Any:D $node, Int $depth = 0) {
 
 method !send-events-for-node (Pod::Block $node, Int $depth) {
     if $node.can('contents') {
-        d "Start {$node.WHAT} (depth = $depth)" if $DEBUG;
+        d "Start {$node.^name} (depth = $depth)" if $DEBUG;
         if $!listener.start($node) {
             d "  ... walking contents" if $DEBUG;
             self.walk-pod( $_, $depth + 1 ) for $node.contents;
