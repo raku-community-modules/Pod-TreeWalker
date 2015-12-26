@@ -16,9 +16,9 @@ method walk-pod (Any:D $node, Int $depth = 0) {
     self!maybe-end-all-lists( $node, $depth );
 
     given $node {
-        when Array {
-            d "Node is an array (depth = $depth)" if $DEBUG;
-            self.walk-pod( $_, $depth + 1 ) for $node.values;
+        when Iterable {
+            d "Node is an iterable (depth = $depth)" if $DEBUG;
+            self.walk-pod( $_, $depth + 1 ) for $node.list.values;
         }
         when Pod::Item {
             d "Item (depth = $depth)" if $DEBUG;

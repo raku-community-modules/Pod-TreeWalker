@@ -1,3 +1,10 @@
+## v0.0.2 - 2015-12-26
+
+* Make Pod::TreeWalker.walk-pod work with a Seq as well as an Array. While
+  internally Perl 6 won't generate a Seq, if you generate Pod objects by hand
+  you might end up passing one to walk-pod, and it might as well work.
+
+
 ## v0.0.2 - 2015-12-25
 
 * Fixed some edge cases with handling of lists. In some cases lists were not
