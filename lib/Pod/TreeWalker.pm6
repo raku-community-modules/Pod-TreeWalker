@@ -46,6 +46,9 @@ method walk-pod (Any:D $node, Int $depth = 0) {
                 $caption = $node.config<caption>:delete;
                 $caption.subst-mutate( /^<[ ' " ]> |<[ ' " ]>$/, q{}, :g );
             }
+            elsif $caption {
+                $caption.subst-mutate( /^<[ ' " ]> |<[ ' " ]>$/, q{}, :g );
+            }
 
             my $new-node = Pod::Block::Table.new(
                 :caption($caption),
