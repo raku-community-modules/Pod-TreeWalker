@@ -9,5 +9,5 @@
         "Pod::TreeWalker"   : "lib/Pod/TreeWalker.pm6",
         "Pod::TreeWalker::Listener" : "lib/Pod/TreeWalker/Listener.pm6"
     },
-    "source-url"  : "git://github.com/autarch/perl6-Pod-TreeWalker.git"
+    "source-url"  : "git://github.com/raku-community-modules/Pod-TreeWalker.git"
 }
