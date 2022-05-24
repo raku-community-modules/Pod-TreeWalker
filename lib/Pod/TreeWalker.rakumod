@@ -1,18 +1,14 @@
-unit class Pod::TreeWalker;
-
 use Pod::TreeWalker::Listener;
 
-has Pod::TreeWalker::Listener $!listener;
-
-has Int $!list-level = 0;
-has Int $!list-start-depth = 0;
-has Bool $!last-list-was-numbered = False;
+unit class Pod::TreeWalker;
+has Pod::TreeWalker::Listener $!listener is built;
+has Int:D  $!list-level = 0;
+has Int:D  $!list-start-depth = 0;
+has Bool:D $!last-list-was-numbered = False;
 
 our $DEBUG = 0;
 
-submethod BUILD (Pod::TreeWalker::Listener :$!listener) { }
-
-method walk-pod (Any:D $node, Int $depth = 0) {
+method walk-pod(Any:D $node, Int:D $depth = 0) {
     self!maybe-end-all-lists( $node, $depth );
 
     given $node {
@@ -75,7 +71,7 @@ method walk-pod (Any:D $node, Int $depth = 0) {
         }
     }
 
-    # This is not needed for normal parsed Pod because of the way rakudo
+    # This is not needed for normal parsed Pod because of the way Raku
     # interprets every item as having a paragraph block. However, if you
     # create the pod objects manually and don't wrap each item's contents in a
     # paragraph block then we have to make sure to end all lists before we're
@@ -83,7 +79,7 @@ method walk-pod (Any:D $node, Int $depth = 0) {
     self!maybe-end-all-lists( $node, $depth ) if $depth == 0;
 }
 
-method !send-events-for-node (Pod::Block $node, Int $depth) {
+method !send-events-for-node(Pod::Block:D $node, Int:D $depth) {
     if $node.can('contents') {
         d "Start {$node.^name} (depth = $depth)" if $DEBUG;
         if $!listener.start($node) {
@@ -99,7 +95,7 @@ method !send-events-for-node (Pod::Block $node, Int $depth) {
     }
 }
 
-method !maybe-end-all-lists (Any $node, Int $depth) {
+method !maybe-end-all-lists(Any:D $node, Int:D $depth) {
     return unless $!list-level;
     return unless $depth <= $!list-start-depth;
     return if $node.isa(Pod::Item);
@@ -110,7 +106,7 @@ method !maybe-end-all-lists (Any $node, Int $depth) {
     $!list-start-depth = 0;
 }
 
-method !start-lists-to (Int $level, Pod::Item $node) {
+method !start-lists-to(Int:D $level, Pod::Item:D $node) {
     d "  ... starting lists from {$!list-level + 1} .. $level " if $DEBUG;
     $!listener.start-list( :level($_), :numbered( ?$node.config<numbered> ) )
         for ($!list-level + 1) .. $level;
@@ -118,36 +114,28 @@ method !start-lists-to (Int $level, Pod::Item $node) {
     $!last-list-was-numbered = ?$node.config<numbered>;
 }
 
-method !end-lists-to (Int $level) {
+method !end-lists-to(Int:D $level) {
     d "  ... ending lists from $!list-level ... {$level + 1} " if $DEBUG;
     $!listener.end-list( :level($_), :numbered( $!last-list-was-numbered ) )
         for $!list-level ... $level + 1;
     $!list-level = $level;
 }
 
-method !podify (Any $thing) {
-    return $thing
-       if $thing ~~ Pod::Block;
-
-    use MONKEY-SEE-NO-EVAL;
-    return EVAL("=begin pod\n\n$thing\n\n=end pod\n; \$=pod[0]");
+method !podify(Any:D $thing) {
+    $thing ~~ Pod::Block
+      ?? $thing
+      !! "=begin pod\n\n$thing\n\n=end pod\n; \$=pod[0]".EVAL
 }
 
 method text-contents-of(Pod::Block:D $node) {
-    my @text = gather {
-        for $node.contents -> $thing {
-            if $thing ~~ Str {
-                take $thing;
-            }
-            else {
-                take self.text-contents-of($thing);
-            }
-        }
-    };
-    return [~] @text;
+    $node.contents.map( -> $thing {
+        $thing ~~ Str
+          ?? $thing
+          !! self.text-contents-of($thing)
+    }).join
 }
 
-sub d (Cool:D $d) {
+my sub d(Cool:D $d --> Nil) {
     if %*ENV<HARNESS_ACTIVE> {
         use Test;
         diag($d);
@@ -159,16 +147,22 @@ sub d (Cool:D $d) {
 
 =begin pod
 
-=NAME Pod::TreeWalker
+=head1 NAME
 
-Walk a Pod tree and generate an event for each node
+Pod::TreeWalker - Walk a Pod tree and generate an event for each node
 
-=SYNOPSIS
+=head1 SYNOPSIS
 
-    my $to-html = Pod::To::HTML.new(...);
-    Pod::TreeWalker.new( :listener($to-html) ).walk-pod($=pod);
+=begin code :lang<raku>
 
-=DESCRIPTION
+use Pod::TreeWalker;
+
+my $to-html = Pod::To::HTML.new(...);
+Pod::TreeWalker.new( :listener($to-html) ).walk-pod($=pod);
+
+=end code
+
+=head1 DESCRIPTION
 
 This class provides an API for walking a pod tree (as provided by
 C<$=pod>). Each node in the tree will trigger one or more events. These events
@@ -176,31 +170,55 @@ cause methods to be called on a listener object that you provide. This lets
 you do something with a Pod document without having to know much about the
 underlying tree structure of Pod.
 
-=METHOD Pod::TreeWalker.new( :listener( Pod::TreeWalker::Listener $object ) )
+=head1 METHODS
 
-The constructor expects a single argument named C<listener>. This object must
+=head2 new
+
+=begin code :lang<raku>
+
+my $walker = Pod::TreeWalker.new( :listener($object) )
+
+=end code
+
+The constructor expects a single named argument C<:listener>. This object must
 implement the L<Pod::TreeWalker::Listener> API.
 
-=METHOD $walker.walk-pod($pod)
+=head2 walk-pod
+
+=begin code :lang<raku>
+
+$walker.walk-pod($pod);
+
+=end code
 
 This method walks through a pod tree starting with the top node in
 C<$pod>. You can provide either an array of pod nodes (as stored in C<$=pod>)
 or a single top-level node (such as C<$=pod[0]>).
 
-=METHOD $walker.text-contents-of($pod)
+=head2 text-content-of
 
-Given a L<Pod::Block> of any sort, this method recursively descends the blocks
-contents and returns the concatenation of all the plain text that it finds.
+=begin code :lang<raku>
 
-=AUTHOR Dave Rolsky <autarch@urth.org>
+say $walker.text-contents-of($pod)
 
-=COPYRIGHT
+=end code
 
-This software is copyright (c) 2015 by Dave Rolsky.
+Given a L<Pod::Block> of any sort, this method recursively descends the
+blocks contents and returns the concatenation of all the plain text that
+it finds.
 
-=LICENSE
+=head1 AUTHOR
 
-This is free software; you can redistribute it and/or modify it under the
-terms of The Artistic License 2.0.
+Dave Rolsky
+
+=head1 COPYRIGHT AND LICENSE
+
+Copyright 2015 - 2018 Dave Rolsky
+
+Copyright 2019 - 2022 Raku Community
+
+This library is free software; you can redistribute it and/or modify it under the Artistic License 2.0.
 
 =end pod
+
+# vim: expandtab shiftwidth=4
