@@ -18,7 +18,7 @@ DESCRIPTION
 
 
 
-This class provides an API for walking a pod tree (as provided by `$=pod`). Each node in the tree will trigger one or more events. These events cause methods to be called on a listener object that your provide. This lets you do something without a Pod document without having to know much about the underlying tree structure of Pod.
+This class provides an API for walking a pod tree (as provided by `$=pod`). Each node in the tree will trigger one or more events. These events cause methods to be called on a listener object that you provide. This lets you do something with a Pod document without having to know much about the underlying tree structure of Pod.
 
 METHOD
 ======
