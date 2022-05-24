@@ -48,7 +48,7 @@ text-content-of
 say $walker.text-contents-of($pod)
 ```
 
-Given a [Pod::Block](Pod::Block) of any sort, this method recursively descends the blocks contents and returns the concatenation of all the plain text that it finds.
+Given a `Pod::Block` of any sort, this method recursively descends the blocks contents and returns the concatenation of all the plain text that it finds.
 
 AUTHOR
 ======
