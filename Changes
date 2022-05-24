@@ -1,6 +1,8 @@
 Revision history for Pod-TreeWalker
 
 {{$NEXT}}
+
+0.0.4  2022-05-24T20:43:16+02:00
     - First release in the zef ecosystem.
 
 v0.0.3 - 2015-12-26
