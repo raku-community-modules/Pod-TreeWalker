@@ -1,4 +1,4 @@
-[![Actions Status](https://github.com/raku-community-modules/Pod-TreeWalker/actions/workflows/test.yml/badge.svg)](https://github.com/raku-community-modules/Pod-TreeWalker/actions)
+[![Actions Status](https://github.com/tbrowder/Pod-TreeWalker/actions/workflows/linux.yml/badge.svg)](https://github.com/tbrowder/Pod-TreeWalker/actions) [![Actions Status](https://github.com/tbrowder/Pod-TreeWalker/actions/workflows/macos.yml/badge.svg)](https://github.com/tbrowder/Pod-TreeWalker/actions) [![Actions Status](https://github.com/tbrowder/Pod-TreeWalker/actions/workflows/windows.yml/badge.svg)](https://github.com/tbrowder/Pod-TreeWalker/actions)
 
 NAME
 ====
