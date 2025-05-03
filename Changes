@@ -4,8 +4,7 @@ Revision history for Pod-TreeWalker
     - Added 'source-url' link to file 'dist.ini'.
     - Added three-OS testing.
     - Renamed 't/lib/TestListener.pm6' to 't/lib/TestListener.rakumod'.
-    - Added comment about location of a good example for a 'listener'
-      object.
+    - Completed the link in the README show the actual API in use in the tests.
     - Updated copyright date.
     - Make the module title bold in the SYNOPSIS.
 
