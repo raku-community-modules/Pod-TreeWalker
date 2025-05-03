@@ -181,7 +181,8 @@ my $walker = Pod::TreeWalker.new( :listener($object) )
 =end code
 
 The constructor requires a single named argument C<:listener>. This object must
-implement the L<Pod::TreeWalker::Listener|./t/lib/TestListener.rakumod> API.
+implement the L<Pod::TreeWalker::Listener|./t/lib/TestListener.rakumod> API
+as demonstrated in file './t/lib/TestListener.rakumod'.
 
 =head2 walk-pod
 
