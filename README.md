@@ -60,7 +60,7 @@ COPYRIGHT AND LICENSE
 
 Copyright 2015 - 2018 Dave Rolsky
 
-Copyright 2019 - 2022 Raku Community
+Copyright 2019 - 2025 Raku Community
 
 This library is free software; you can redistribute it and/or modify it under the Artistic License 2.0.
 

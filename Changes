@@ -6,6 +6,7 @@ Revision history for Pod-TreeWalker
     - Renamed 't/lib/TestListener.pm6' to 't/lib/TestListener.rakumod'.
     - Added comment about location of a good example for a 'listener'
       object.
+    - Updated copyright date.
 
 0.0.4  2022-05-24T20:43:16+02:00
     - First release in the zef ecosystem.
