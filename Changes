@@ -1,9 +1,11 @@
 Revision history for Pod-TreeWalker
 
 {{$NEXT}}
-    - Added 'source-url' link to dist.ini
-    - Added three-OS testing
-    - Renamed 't/lib/TestListener.pm6' to 't/lib/TestListener.rakumod'
+    - Added 'source-url' link to file 'dist.ini'.
+    - Added three-OS testing.
+    - Renamed 't/lib/TestListener.pm6' to 't/lib/TestListener.rakumod'.
+    - Added comment about location of a good example for a 'listener'
+      object.
 
 0.0.4  2022-05-24T20:43:16+02:00
     - First release in the zef ecosystem.

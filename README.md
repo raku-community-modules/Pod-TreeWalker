@@ -1,4 +1,4 @@
-[![Actions Status](https://github.com/tbrowder/Pod-TreeWalker/actions/workflows/linux.yml/badge.svg)](https://github.com/tbrowder/Pod-TreeWalker/actions) [![Actions Status](https://github.com/tbrowder/Pod-TreeWalker/actions/workflows/macos.yml/badge.svg)](https://github.com/tbrowder/Pod-TreeWalker/actions) [![Actions Status](https://github.com/tbrowder/Pod-TreeWalker/actions/workflows/windows.yml/badge.svg)](https://github.com/tbrowder/Pod-TreeWalker/actions)
+[![Actions Status](https://github.com/raku-community-modules/Pod-TreeWalker/actions/workflows/linux.yml/badge.svg)](https://github.com/raku-community-modules/Pod-TreeWalker/actions) [![Actions Status](https://github.com/raku-community-modules/Pod-TreeWalker/actions/workflows/macos.yml/badge.svg)](https://github.com/raku-community-modules/Pod-TreeWalker/actions) [![Actions Status](https://github.com/raku-community-modules/Pod-TreeWalker/actions/workflows/windows.yml/badge.svg)](https://github.com/raku-community-modules/Pod-TreeWalker/actions)
 
 NAME
 ====
@@ -30,7 +30,7 @@ new
 my $walker = Pod::TreeWalker.new( :listener($object) )
 ```
 
-The constructor expects a single named argument `:listener`. This object must implement the [Pod::TreeWalker::Listener](Pod::TreeWalker::Listener) API.
+The constructor expects a single named argument `:listener`. This object must implement the [Pod::TreeWalker::Listener](Pod::TreeWalker::Listener) API. See file 't/lib/TestListener.rakumod' for a good example.
 
 walk-pod
 --------
