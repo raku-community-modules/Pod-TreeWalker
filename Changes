@@ -1,11 +1,13 @@
 Revision history for Pod-TreeWalker
 
 {{$NEXT}}
+    - Changed trait 'is built' to 'is required' on the Listener
+      object in the constructor.
+    - Completed the link in the README show the actual API in use in 
+      the tests. Also listed the file path in the README.
     - Added 'source-url' link to file 'dist.ini'.
     - Added three-OS testing.
     - Renamed 't/lib/TestListener.pm6' to 't/lib/TestListener.rakumod'.
-    - Completed the link in the README show the actual API in use in 
-      the tests. Also listed the file path in the README.
     - Updated copyright date.
     - Make the module title bold in the SYNOPSIS.
 
