@@ -3,7 +3,7 @@
 NAME
 ====
 
-Pod::TreeWalker - Walk a Pod tree and generate an event for each node
+**Pod::TreeWalker** - Walk a Pod tree and generate an event for each node
 
 SYNOPSIS
 ========

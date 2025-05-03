@@ -7,6 +7,7 @@ Revision history for Pod-TreeWalker
     - Added comment about location of a good example for a 'listener'
       object.
     - Updated copyright date.
+    - Make the module title bold in the SYNOPSIS.
 
 0.0.4  2022-05-24T20:43:16+02:00
     - First release in the zef ecosystem.

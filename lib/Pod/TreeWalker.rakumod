@@ -149,7 +149,7 @@ my sub d(Cool:D $d --> Nil) {
 
 =head1 NAME
 
-Pod::TreeWalker - Walk a Pod tree and generate an event for each node
+B<Pod::TreeWalker> - Walk a Pod tree and generate an event for each node
 
 =head1 SYNOPSIS
 
