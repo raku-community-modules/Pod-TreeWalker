@@ -149,7 +149,7 @@ my sub d(Cool:D $d --> Nil) {
 
 =head1 NAME
 
-Pod::TreeWalker - Walk a Pod tree and generate an event for each node
+B<Pod::TreeWalker> - Walk a Pod tree and generate an event for each node
 
 =head1 SYNOPSIS
 
@@ -180,8 +180,9 @@ my $walker = Pod::TreeWalker.new( :listener($object) )
 
 =end code
 
-The constructor expects a single named argument C<:listener>. This object must
-implement the L<Pod::TreeWalker::Listener> API.
+The constructor requires a single named argument C<:listener>. This object must
+implement the L<Pod::TreeWalker::Listener|./t/lib/TestListener.rakumod> API
+as demonstrated in file './t/lib/TestListener.rakumod'.
 
 =head2 walk-pod
 
@@ -215,7 +216,7 @@ Dave Rolsky
 
 Copyright 2015 - 2018 Dave Rolsky
 
-Copyright 2019 - 2022 Raku Community
+Copyright 2019 - 2025 Raku Community
 
 This library is free software; you can redistribute it and/or modify it under the Artistic License 2.0.
 

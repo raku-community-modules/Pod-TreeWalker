@@ -1,9 +1,9 @@
-[![Actions Status](https://github.com/raku-community-modules/Pod-TreeWalker/actions/workflows/test.yml/badge.svg)](https://github.com/raku-community-modules/Pod-TreeWalker/actions)
+[![Actions Status](https://github.com/raku-community-modules/Pod-TreeWalker/actions/workflows/linux.yml/badge.svg)](https://github.com/raku-community-modules/Pod-TreeWalker/actions) [![Actions Status](https://github.com/raku-community-modules/Pod-TreeWalker/actions/workflows/macos.yml/badge.svg)](https://github.com/raku-community-modules/Pod-TreeWalker/actions) [![Actions Status](https://github.com/raku-community-modules/Pod-TreeWalker/actions/workflows/windows.yml/badge.svg)](https://github.com/raku-community-modules/Pod-TreeWalker/actions)
 
 NAME
 ====
 
-Pod::TreeWalker - Walk a Pod tree and generate an event for each node
+**Pod::TreeWalker** - Walk a Pod tree and generate an event for each node
 
 SYNOPSIS
 ========
@@ -30,7 +30,7 @@ new
 my $walker = Pod::TreeWalker.new( :listener($object) )
 ```
 
-The constructor expects a single named argument `:listener`. This object must implement the [Pod::TreeWalker::Listener](Pod::TreeWalker::Listener) API.
+The constructor requires a single named argument `:listener`. This object must implement the [Pod::TreeWalker::Listener](./t/lib/TestListener.rakumod) API as demonstrated in file './t/lib/TestListener.rakumod'.
 
 walk-pod
 --------
@@ -60,7 +60,7 @@ COPYRIGHT AND LICENSE
 
 Copyright 2015 - 2018 Dave Rolsky
 
-Copyright 2019 - 2022 Raku Community
+Copyright 2019 - 2025 Raku Community
 
 This library is free software; you can redistribute it and/or modify it under the Artistic License 2.0.
 
