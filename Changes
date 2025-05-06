@@ -9,7 +9,6 @@ Revision history for Pod-TreeWalker
     - Added three-OS testing.
     - Renamed 't/lib/TestListener.pm6' to 't/lib/TestListener.rakumod'.
     - Updated copyright date.
-    - Make the module title bold in the SYNOPSIS.
 
 0.0.4  2022-05-24T20:43:16+02:00
     - First release in the zef ecosystem.

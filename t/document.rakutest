@@ -1,8 +1,9 @@
-use v6;
 use Test;
-use lib 'lib', 't/lib';;
 use Pod::TreeWalker;
+use lib $*PROGRAM.sibling('lib');
 use TestListener;
+
+plan 1;
 
 =begin pod
 
@@ -61,10 +62,10 @@ my @expect = (
 
 is-deeply $l.events, @expect, 'got expected events for pod document';
 
-done-testing;
-
 =begin pod
 
 =AUTHOR Dave Rolsky <autarch@urth.org>
 
 =end pod
+
+# vim: expandtab shiftwidth=4

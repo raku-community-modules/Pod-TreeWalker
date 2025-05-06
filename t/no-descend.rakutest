@@ -1,8 +1,9 @@
-use v6;
 use Test;
-use lib 'lib', 't/lib';;
 use Pod::TreeWalker;
+use lib $*PROGRAM.sibling('lib');
 use TestListener;
+
+plan 1;
 
 my class PickyListener is TestListener {
     multi method start (Pod::Block::Named $node) {
@@ -40,4 +41,4 @@ subtest {
     is-deeply $l.events, @expect, 'got expected events';
 }, 'when NodeListener object returns false from start method, contents are ignored';
 
-done-testing;
+# vim: expandtab shiftwidth=4

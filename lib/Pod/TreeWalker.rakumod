@@ -1,7 +1,7 @@
 use Pod::TreeWalker::Listener;
 
 unit class Pod::TreeWalker;
-has Pod::TreeWalker::Listener $!listener is built;
+has Pod::TreeWalker::Listener $.listener is required;
 has Int:D  $!list-level = 0;
 has Int:D  $!list-start-depth = 0;
 has Bool:D $!last-list-was-numbered = False;
@@ -144,82 +144,5 @@ my sub d(Cool:D $d --> Nil) {
         say $d;
     }
 }
-
-=begin pod
-
-=head1 NAME
-
-B<Pod::TreeWalker> - Walk a Pod tree and generate an event for each node
-
-=head1 SYNOPSIS
-
-=begin code :lang<raku>
-
-use Pod::TreeWalker;
-
-my $to-html = Pod::To::HTML.new(...);
-Pod::TreeWalker.new( :listener($to-html) ).walk-pod($=pod);
-
-=end code
-
-=head1 DESCRIPTION
-
-This class provides an API for walking a pod tree (as provided by
-C<$=pod>). Each node in the tree will trigger one or more events. These events
-cause methods to be called on a listener object that you provide. This lets
-you do something with a Pod document without having to know much about the
-underlying tree structure of Pod.
-
-=head1 METHODS
-
-=head2 new
-
-=begin code :lang<raku>
-
-my $walker = Pod::TreeWalker.new( :listener($object) )
-
-=end code
-
-The constructor requires a single named argument C<:listener>. This object must
-implement the L<Pod::TreeWalker::Listener|./t/lib/TestListener.rakumod> API
-as demonstrated in file './t/lib/TestListener.rakumod'.
-
-=head2 walk-pod
-
-=begin code :lang<raku>
-
-$walker.walk-pod($pod);
-
-=end code
-
-This method walks through a pod tree starting with the top node in
-C<$pod>. You can provide either an array of pod nodes (as stored in C<$=pod>)
-or a single top-level node (such as C<$=pod[0]>).
-
-=head2 text-content-of
-
-=begin code :lang<raku>
-
-say $walker.text-contents-of($pod)
-
-=end code
-
-Given a C<Pod::Block> of any sort, this method recursively descends the
-blocks contents and returns the concatenation of all the plain text that
-it finds.
-
-=head1 AUTHOR
-
-Dave Rolsky
-
-=head1 COPYRIGHT AND LICENSE
-
-Copyright 2015 - 2018 Dave Rolsky
-
-Copyright 2019 - 2025 Raku Community
-
-This library is free software; you can redistribute it and/or modify it under the Artistic License 2.0.
-
-=end pod
 
 # vim: expandtab shiftwidth=4

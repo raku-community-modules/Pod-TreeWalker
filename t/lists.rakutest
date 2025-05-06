@@ -1,8 +1,9 @@
-use v6;
 use Test;
-use lib 'lib', 't/lib';;
 use Pod::TreeWalker;
+use lib $*PROGRAM.sibling('lib');
 use TestListener;
+
+plan 6;
 
 my $pod_i = 0;
 
@@ -251,4 +252,4 @@ subtest {
     is-deeply $l.events, @expect, 'got expected events';
 }, 'list of pod objects created directly';
 
-done-testing;
+# vim: expandtab shiftwidth=4
