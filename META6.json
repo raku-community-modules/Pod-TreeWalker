@@ -18,9 +18,11 @@
   "resources": [
   ],
   "source-url": "https://github.com/raku-community-modules/Pod-TreeWalker.git",
-  "tags": [ "POD","TREE"
+  "tags": [
+    "POD",
+    "TREE"
   ],
   "test-depends": [
   ],
-  "version": "0.0.4"
+  "version": "0.0.5"
 }
