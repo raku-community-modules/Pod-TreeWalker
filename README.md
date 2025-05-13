@@ -11,17 +11,14 @@ SYNOPSIS
 ```raku
 use Pod::TreeWalker;
 
-my $L = My::Listener.new;
-my $o = Pod::TreeWalker.new: :listener($L);
-my @events = $o.walk-pod($=pod);
+my $to-html = Pod::To::HTML.new(...);
+Pod::TreeWalker.new( :listener($to-html) ).walk-pod($=pod);
 ```
 
 DESCRIPTION
 ===========
 
 This class provides an API for walking a pod tree (as provided by `$=pod`). Each node in the tree will trigger one or more events. These events cause methods to be called on a listener object that you provide. This lets you do something with a Pod document without having to know much about the underlying tree structure of Pod.
-
-Note: Use distribution `Pod::Load` for an easy way to access the Pod from a file or a string.
 
 METHODS
 =======
@@ -30,19 +27,19 @@ new
 ---
 
 ```raku
-my $walker = Pod::TreeWalker.new: :listener($object);
+my $walker = Pod::TreeWalker.new( :listener($object) )
 ```
 
-The constructor requires a single named argument `:listener`. This object must implement the `Pod::TreeWalker::Listener` API as demonstrated in file './t/lib/TestListener.rakumod'. See more details in **Listener.md**.
+The constructor requires a single named argument `:listener`. This object must implement the [Pod::TreeWalker::Listener](./t/lib/TestListener.rakumod) API as demonstrated in file './t/lib/TestListener.rakumod'.
 
 walk-pod
 --------
 
 ```raku
-my @events = $walker.walk-pod($pod);
+$walker.walk-pod($pod);
 ```
 
-This method walks through a pod tree starting with the top node in `$pod`. You can provide either an array of pod nodes (as stored in `$=pod`) or a single top-level node (such as `$=pod[0]`). The `@events` list provides the details of each pod node encountered.
+This method walks through a pod tree starting with the top node in `$pod`. You can provide either an array of pod nodes (as stored in `$=pod`) or a single top-level node (such as `$=pod[0]`).
 
 text-content-of
 ---------------
