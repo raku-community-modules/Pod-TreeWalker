@@ -23,6 +23,7 @@
     "TREE"
   ],
   "test-depends": [
+    "Test::Coverage"
   ],
   "version": "0.0.5"
 }
