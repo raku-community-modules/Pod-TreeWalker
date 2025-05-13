@@ -1,15 +1,6 @@
 Revision history for Pod-TreeWalker
 
 {{$NEXT}}
-    - Enabled creation of a separate document for the Listener
-      role from existing pod in file 
-        'lib/Pod/TreeWalker/Listener.rakumod'.
-    - Updated copyright date in file
-        'lib/Pod/TreeWalker/Listener.rakumod'.
-    - Added a short example of actual use along with other
-        README.md tweaks.
-    - Added missing dep 'Test::Coverage' to META6.json
-    - Adjusted Test::Coverage numbers in xt/
 
 0.0.5  2025-05-06T11:02:12+02:00
     - Changed trait 'is built' to 'is required' on the Listener
