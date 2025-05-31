@@ -1,6 +1,8 @@
 Revision history for Pod-TreeWalker
 
 {{$NEXT}}
+
+0.0.6  2025-05-31T18:54:04+02:00
     - Enabled creation of a separate document for the Listener
       role from existing pod in file 
         'lib/Pod/TreeWalker/Listener.rakumod'.
