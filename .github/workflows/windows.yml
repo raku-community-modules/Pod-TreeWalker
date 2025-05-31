@@ -24,7 +24,6 @@ jobs:
           raku-version: ${{ matrix.raku-version }}
       - name: Install Dependencies
         run: |
-            choco install rakudostar
-            zef --exclude="z" install --debug --/test --test-depends --deps-only .
-      - name: Run Tests
+            zef install --debug --/test --test-depends --deps-only .
+      - name: Test and install
         run: zef --debug install .
