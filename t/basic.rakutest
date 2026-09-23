@@ -230,15 +230,14 @@ subtest {
 
     my @expect = (
          { :start, :type('named'), :name('pod') },
-         { :start, :type('defn') },
+         { :start, :type('defn'), :term('Term') },
          { :start, :type('para') },
          { :text('Definition') },
-         { :end, :type('defn') },
          { :end, :type('para') },
+         { :end, :type('defn'), :term('Term') },
          { :end, :type('named'), :name('pod') },
     );
 
-    todo( 'https://rt.perl.org/Ticket/Display.html?id=126651', 1 );
     is-deeply $l.events, @expect, 'got expected events';
 }, '=defn block';
 
