@@ -24,14 +24,18 @@ subtest {
 
     is-deeply $l.events, @expect, 'got expected events for class declarator';
 
+    # The legacy compiler frontend only sets an attribute's WHEREFORE
+    # once .WHY has been called on the attribute.
+    my $foo-attr = Foo.^attributes.first(*.name eq '$!foo');
+    $foo-attr.WHY;
+
     $l = TestListener.new;
     Pod::TreeWalker.new(:listener($l)).walk-pod($=pod[$pod_i++]);
 
-    # XXX - This WHEREFORE doesn't seem right
     @expect = (
-         { :start, :type('declarator'), :wherefore(Any) },
+         { :start, :type('declarator'), :wherefore($foo-attr) },
          { :text('a foo!') },
-         { :end, :type('declarator'), :wherefore(Any) },
+         { :end, :type('declarator'), :wherefore($foo-attr) },
     );
 
     is-deeply $l.events, @expect, 'got expected events for attribute declarator';

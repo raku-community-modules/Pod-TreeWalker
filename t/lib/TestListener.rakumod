@@ -26,6 +26,14 @@ class TestListener does Pod::TreeWalker::Listener {
         @.events.push( { :end, :type('declarator'), :wherefore($node.WHEREFORE) } );
     }
 
+    multi method start (Pod::Defn $node) {
+        @.events.push( { :start, :type('defn'), :term($node.term) } );
+        return True;
+    }
+    multi method end (Pod::Defn $node) {
+        @.events.push( { :end, :type('defn'), :term($node.term) } );
+    }
+
     multi method start (Pod::Block::Named $node) {
         @.events.push( { :start, :type('named'), :name($node.name) } );
         return True;
