@@ -1,6 +1,8 @@
 Revision history for Pod-TreeWalker
 
 {{$NEXT}}
+
+0.0.7  2026-09-24T13:52:05+02:00
     - Fix declarator and defn tests (ugexe++)
     - Modernize META
     - Update copyright year

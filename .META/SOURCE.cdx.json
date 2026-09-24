@@ -4,7 +4,7 @@
   "specVersion": "1.6",
   "version": 1,
   "metadata": {
-    "timestamp": "2025-08-03T12:36:11+00:00",
+    "timestamp": "2026-09-24T11:52:40+00:00",
     "lifecycles": [
       {
         "phase": "pre-build"
@@ -19,7 +19,7 @@
     "component": {
       "type": "library",
       "mime-type": "text/plain",
-      "bom-ref": "pkg:raku/zef:raku-community-modules/Pod::TreeWalker@0.0.6",
+      "bom-ref": "pkg:raku/zef:raku-community-modules/Pod::TreeWalker@0.0.7",
       "authors": [
         {
           "bom-ref": "DaveRolsky",
@@ -29,7 +29,7 @@
       "publisher": "zef",
       "group": "zef:raku-community-modules",
       "name": "Pod::TreeWalker",
-      "version": "0.0.6",
+      "version": "0.0.7",
       "description": "Walk a Pod tree and generate an event for each node",
       "scope": "required",
       "licenses": [
@@ -41,27 +41,27 @@
           }
         }
       ],
-      "purl": "pkg:raku/zef:raku-community-modules/Pod::TreeWalker@0.0.6",
+      "purl": "pkg:raku/zef:raku-community-modules/Pod::TreeWalker@0.0.7",
       "externalReferences": [
-        {
-          "url": "https://raku.land/zef:raku-community-modules/Pod::TreeWalker?v=0.0.6",
-          "type": "documentation"
-        },
         {
           "url": "https://github.com/raku-community-modules/Pod-TreeWalker",
           "type": "distribution"
+        },
+        {
+          "url": "https://raku.land/zef:raku-community-modules/Pod::TreeWalker?v=0.0.7",
+          "type": "documentation"
         },
         {
           "url": "https://github.com/raku-community-modules/Pod-TreeWalker/issues",
           "type": "issue-tracker"
         },
         {
-          "url": "https://github.com/raku-community-modules/Pod-TreeWalker/archive/refs/tags/0.0.6.zip",
-          "type": "source-distribution"
-        },
-        {
           "url": "https://spdx.org/licenses/Artistic-2.0.json",
           "type": "license"
+        },
+        {
+          "url": "https://github.com/raku-community-modules/Pod-TreeWalker/archive/refs/tags/0.0.7.zip",
+          "type": "source-distribution"
         }
       ],
       "tags": [
@@ -83,7 +83,7 @@
         {
           "type": "library",
           "mime-type": "text/plain",
-          "bom-ref": "pkg:raku/zef:lizmat/SBOM::Raku@0.0.6",
+          "bom-ref": "pkg:raku/zef:lizmat/SBOM::Raku@0.0.14",
           "authors": [
             {
               "bom-ref": "ElizabethMattijsen",
@@ -93,7 +93,7 @@
           "publisher": "zef",
           "group": "zef:lizmat",
           "name": "SBOM::Raku",
-          "version": "0.0.6",
+          "version": "0.0.14",
           "description": "Raku specific SBOM functionality",
           "scope": "required",
           "licenses": [
@@ -105,31 +105,27 @@
               }
             }
           ],
-          "purl": "pkg:raku/zef:lizmat/SBOM::Raku@0.0.6",
+          "purl": "pkg:raku/zef:lizmat/SBOM::Raku@0.0.14",
           "externalReferences": [
             {
-              "url": "https://raku.land/zef:lizmat/SBOM::Raku?v=0.0.6",
-              "type": "documentation"
-            },
-            {
-              "url": "mailto:liz@raku.rocks",
-              "type": "support"
-            },
-            {
-              "url": "https://github.com/lizmat/SBOM-Raku/issues",
-              "type": "issue-tracker"
-            },
-            {
-              "url": "https://github.com/lizmat/SBOM-Raku",
+              "url": "https://codeberg.org/lizmat/SBOM-Raku",
               "type": "distribution"
             },
             {
-              "url": "https://github.com/lizmat/SBOM-Raku/archive/refs/tags/0.0.6.zip",
-              "type": "source-distribution"
+              "url": "https://raku.land/zef:lizmat/SBOM::Raku?v=0.0.14",
+              "type": "documentation"
+            },
+            {
+              "url": "https://codeberg.org/lizmat/SBOM-Raku/issues",
+              "type": "issue-tracker"
             },
             {
               "url": "https://spdx.org/licenses/Artistic-2.0.json",
               "type": "license"
+            },
+            {
+              "url": "mailto:liz@raku.rocks",
+              "type": "support"
             }
           ],
           "tags": [
@@ -141,26 +137,130 @@
       ]
     }
   },
-  "externalReferences": [
+  "components": [
     {
-      "url": "https://raku.land/zef:raku-community-modules/Pod::TreeWalker?v=0.0.6",
-      "type": "documentation"
+      "type": "platform",
+      "bom-ref": "Rakudo",
+      "authors": [
+        {
+          "bom-ref": "RakudoCoreDevelopers",
+          "name": "Rakudo Core Developers"
+        }
+      ],
+      "publisher": "Rakudo Core Developers",
+      "group": "Rakudo Core Developers",
+      "name": "Rakudo",
+      "version": "2026.08-517-g99ca13d63",
+      "description": "The Rakudo™ Compiler implementing the Raku® Programming Language",
+      "scope": "required",
+      "licenses": [
+        {
+          "license": {
+            "id": "Artistic-2.0",
+            "acknowledgement": "declared",
+            "url": "https://spdx.org/licenses/Artistic-2.0.json"
+          }
+        }
+      ],
+      "copyright": "© 2006 - 2026 Yet Another Society",
+      "externalReferences": [
+        {
+          "url": "https://github.com/rakudo/rakudo",
+          "type": "distribution"
+        },
+        {
+          "url": "https://github.com/rakudo/rakudo/issues",
+          "type": "issue-tracker"
+        },
+        {
+          "url": "https://github.com/rakudo/rakudo/archive/99ca13d63.zip",
+          "type": "source-distribution"
+        },
+        {
+          "url": "irc://libera.chat/raku",
+          "type": "chat"
+        }
+      ]
     },
+    {
+      "type": "platform",
+      "bom-ref": "moar",
+      "authors": [
+        {
+          "bom-ref": "TheMoarVMTeam",
+          "name": "The MoarVM Team"
+        }
+      ],
+      "publisher": "The MoarVM Team",
+      "group": "The MoarVM Team",
+      "name": "Moar",
+      "version": "2026.08-13-g6e2ce2f37",
+      "description": "Short for \"Metamodel On A Runtime\", MoarVM is a modern virtual machine built for the Rakudo compiler and the NQP Compiler Toolchain.",
+      "scope": "required",
+      "licenses": [
+        {
+          "license": {
+            "id": "Artistic-2.0",
+            "acknowledgement": "declared",
+            "url": "https://spdx.org/licenses/Artistic-2.0.json"
+          }
+        }
+      ],
+      "copyright": "© 2012 - 2026 Jonathan Worthington",
+      "externalReferences": [
+        {
+          "url": "https://github.com/MoarVM/MoarVM",
+          "type": "distribution"
+        },
+        {
+          "url": "https://github.com/MoarVM/MoarVM/issues",
+          "type": "issue-tracker"
+        },
+        {
+          "url": "irc://libera.chat/moarvm",
+          "type": "chat"
+        },
+        {
+          "url": "https://github.com/MoarVM/MoarVM.git/archive/refs/tags/6e2ce2f37.zip",
+          "type": "source-distribution"
+        }
+      ]
+    }
+  ],
+  "externalReferences": [
     {
       "url": "https://github.com/raku-community-modules/Pod-TreeWalker",
       "type": "distribution"
+    },
+    {
+      "url": "https://raku.land/zef:raku-community-modules/Pod::TreeWalker?v=0.0.7",
+      "type": "documentation"
     },
     {
       "url": "https://github.com/raku-community-modules/Pod-TreeWalker/issues",
       "type": "issue-tracker"
     },
     {
-      "url": "https://github.com/raku-community-modules/Pod-TreeWalker/archive/refs/tags/0.0.6.zip",
-      "type": "source-distribution"
-    },
-    {
       "url": "https://spdx.org/licenses/Artistic-2.0.json",
       "type": "license"
+    },
+    {
+      "url": "https://github.com/raku-community-modules/Pod-TreeWalker/archive/refs/tags/0.0.7.zip",
+      "type": "source-distribution"
+    }
+  ],
+  "dependencies": [
+    {
+      "ref": "Rakudo",
+      "dependsOn": [
+        "moar"
+      ]
+    },
+    {
+      "ref": "pkg:raku/zef:lizmat/SBOM::Raku@0.0.14",
+      "dependsOn": [
+        "Rakudo"
+      ]
     }
   ]
 }
