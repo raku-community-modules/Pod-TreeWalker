@@ -1,6 +1,9 @@
 Revision history for Pod-TreeWalker
 
 {{$NEXT}}
+    - Fix declarator and defn tests (ugexe++)
+    - Modernize META
+    - Update copyright year
 
 0.0.6  2025-05-31T18:54:04+02:00
     - Enabled creation of a separate document for the Listener

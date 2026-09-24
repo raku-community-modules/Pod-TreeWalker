@@ -10,20 +10,23 @@
   "description": "Walk a Pod tree and generate an event for each node",
   "license": "Artistic-2.0",
   "name": "Pod::TreeWalker",
-  "perl": "6.*",
   "provides": {
     "Pod::TreeWalker": "lib/Pod/TreeWalker.rakumod",
     "Pod::TreeWalker::Listener": "lib/Pod/TreeWalker/Listener.rakumod"
   },
+  "raku": "6.*",
   "resources": [
   ],
   "source-url": "https://github.com/raku-community-modules/Pod-TreeWalker.git",
+  "support": {
+    "bugtracker": "https://github.com/raku-community-modules/Pod-TreeWalker/issues",
+    "source": "https://github.com/raku-community-modules/Pod-TreeWalker.git"
+  },
   "tags": [
     "POD",
     "TREE"
   ],
   "test-depends": [
-    "Test::Coverage"
   ],
   "version": "0.0.6"
 }
